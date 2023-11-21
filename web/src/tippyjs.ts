@@ -197,6 +197,20 @@ export function initialize(): void {
     });
 
     delegate("body", {
+        target: ".subsection-changes-save",
+        appendTo: () => document.body,
+        onShow(instance) {
+            const $elem = $(instance.reference);
+            if ($($elem).find(".save-button").is(":disabled")) {
+                const content = $t({defaultMessage: "Cannot save invalid Jitsi server URL."});
+                instance.setContent(content);
+                return undefined;
+            }
+            return false;
+        },
+    });
+
+    delegate("body", {
         target: ".delete-selected-drafts-button-container",
         appendTo: () => document.body,
         onShow(instance) {
